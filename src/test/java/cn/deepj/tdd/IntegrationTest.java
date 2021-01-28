@@ -1,13 +1,15 @@
 package cn.deepj.tdd;
 
 import cn.deepj.tdd.domain.Events;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mock.web.MockHttpServletResponse;
+import org.springframework.test.context.jdbc.Sql;
+import org.springframework.transaction.annotation.Transactional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
@@ -23,6 +25,8 @@ import static org.springframework.boot.test.context.SpringBootTest.WebEnvironmen
  * @since 2021-01-27 9:59
  */
 @SpringBootTest(webEnvironment = RANDOM_PORT)
+@Sql({"/schema.sql","/data.sql"})
+@Transactional
 public class IntegrationTest {
 
     @Autowired
@@ -36,7 +40,7 @@ public class IntegrationTest {
         // act
         ResponseEntity<Events> response = restTemplate
                 .getForEntity("/api/events", Events.class);
-
+        printResponse(response);
         // assert
         // 请求状态
         assertEquals(HttpStatus.OK, response.getStatusCode());
@@ -60,5 +64,11 @@ public class IntegrationTest {
 
         // failing-test 404 395ms
 
+    }
+
+    protected void printResponse(ResponseEntity<?> response) {
+        System.out.println("Status: " + response.getStatusCode());
+        System.out.println("Headers: " +  response.getHeaders());
+        System.out.println("Body: " + response.getBody());
     }
 }

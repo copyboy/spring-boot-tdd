@@ -59,6 +59,13 @@ public class EventControllerTest {
         //      produces属性可以设置返回数据的类型以及编码
         //      在请求时就设置相应编码
 
+        // 4） 写完mapper的测试类后，此处执行失败Failed to load ApplicationContext
+        //       Error creating bean with name 'eventController' defined
+        //       -> Error creating bean with name 'eventMapper' defined
+        //       -> Property 'sqlSessionFactory' or 'sqlSessionTemplate' are required
+
+
+
     }
 
     @Test

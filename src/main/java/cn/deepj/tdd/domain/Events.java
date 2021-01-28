@@ -53,4 +53,13 @@ public class Events {
     public void setEventList(List<Event> eventList) {
         this.eventList = eventList;
     }
+
+    @Override
+    public String toString() {
+        return "Events{" +
+                "mainTitle='" + mainTitle + '\'' +
+                ", timeTitle='" + timeTitle + '\'' +
+                ", eventList=" + eventList +
+                '}';
+    }
 }

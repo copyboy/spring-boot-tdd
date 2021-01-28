@@ -5,3 +5,14 @@ spring:
     username: root
     password: root
     driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      maximum-pool-size: 50
+      minimum-idle: 5
+      idle-timeout: 18000
+      pool-name: EventPool
+    type: com.zaxxer.hikari.HikariDataSource
+
+mybatis-plus:
+  global-config:
+    banner: off
+  mapper-locations:
