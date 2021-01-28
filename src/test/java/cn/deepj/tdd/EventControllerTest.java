@@ -1,10 +1,18 @@
 package cn.deepj.tdd;
 
 import cn.deepj.tdd.domain.Events;
+import cn.deepj.tdd.mapper.EventMapper;
 import org.junit.jupiter.api.Test;
+import org.mybatis.spring.boot.test.autoconfigure.AutoConfigureMybatis;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.boot.test.mock.mockito.SpyBean;
+import org.springframework.context.annotation.Bean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
@@ -25,7 +33,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @version 1.0
  * @since 2021-01-27 10:45
  */
-@WebMvcTest(EventController.class)
+@WebMvcTest(value = EventController.class)
+@AutoConfigureMybatis
 //@DisplayName("测试事件控制器")
 public class EventControllerTest {
 
@@ -59,10 +68,24 @@ public class EventControllerTest {
         //      produces属性可以设置返回数据的类型以及编码
         //      在请求时就设置相应编码
 
-        // 4） 写完mapper的测试类后，此处执行失败Failed to load ApplicationContext
+        // 4） 写完mapper的测试类后，也就是eventServer依赖eventMapper后, 此处执行失败Failed to load ApplicationContext
         //       Error creating bean with name 'eventController' defined
         //       -> Error creating bean with name 'eventMapper' defined
         //       -> Property 'sqlSessionFactory' or 'sqlSessionTemplate' are required
+        //  解决方案： 新增@AutoConfigureMybatis 注解
+        //       需要依赖， 参考 https://github.com/mybatis/spring-boot-starter/issues/227
+        //                  , https://blog.csdn.net/weixin_45160274/article/details/106571660
+        //          <dependency>
+        //              <groupId>org.mybatis.spring.boot</groupId>
+        //              <artifactId>mybatis-spring-boot-starter-test</artifactId>
+        //              <version>2.1.4</version>
+        //          </dependency>
+        //          <dependency>
+        //              <groupId>org.mybatis.spring.boot</groupId>
+        //              <artifactId>mybatis-spring-boot-autoconfigure</artifactId>
+        //              <version>2.1.4</version>
+        //          </dependency>
+
 
 
 

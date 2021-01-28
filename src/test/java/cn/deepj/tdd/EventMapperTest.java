@@ -27,7 +27,6 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
  * @version 1.0
  * @since 2021-01-27 19:25
  */
-@ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = SpringBootTddApplication.class)
 @Transactional
 class EventMapperTest {
