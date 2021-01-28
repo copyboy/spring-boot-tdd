@@ -3,10 +3,8 @@ package cn.deepj.tdd;
 import cn.deepj.tdd.domain.Event;
 import cn.deepj.tdd.mapper.EventMapper;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -59,6 +57,7 @@ class EventMapperTest {
         // 怎么做到不依赖数据库数据
         // 1. 使用 BeforeEach,AfterEach 做测试数据的插入与删除
         // 2. 使用@Transactional 注解,支持数据回滚，避免测试数据污染环境
+        // 3. 使用内存数据库H2，参考 https://github.com/classyex/junitdemo 案例
     }
 
 //    @AfterEach

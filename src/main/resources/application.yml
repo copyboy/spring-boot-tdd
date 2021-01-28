@@ -15,4 +15,5 @@ spring:
 mybatis-plus:
   global-config:
     banner: off
-  mapper-locations:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
